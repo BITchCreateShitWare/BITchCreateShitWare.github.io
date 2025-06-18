@@ -5,12 +5,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ymacs Test</title>
+    <title>性奴工具</title>
 </head>
 <body>
-    <div id="container"></div> 
+    
+    <!-- 头部导航组件 -->
+    <nav class="nav-container">
+        <div class="nav-item">应用A
+        </div>
+        <div class="nav-item">应用B
+        </div>
+        <div class="nav-item">应用C
+        </div>
+        <div class="nav-item">应用D
+        </div>
+    </nav>
+    
+    <div id="container" style="position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: #fff;
+    text-align: left;
+    border-radius: 20px;">
+    </div>
 </body>
 </html>
+
+<style>
+    /* 导航栏样式 */
+    .nav-container {
+        background-color: #3f51b5;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 导航项样式 */
+    .nav-item {
+        margin-right: 20px;
+        cursor: pointer;
+        position: relative;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+
+    .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* 下拉菜单样式 */
+    .dropdown {
+        position: absolute;
+        background-color: white;
+        min-width: 160px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        display: none;
+        z-index: 1;
+        top: 100%;
+        left: 0;
+    }
+
+    .dropdown a {
+        color: #333;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .nav-item:hover .dropdown {
+        display: block;
+    }
+</style>
+
 
 <script type="module">
     import { Ymacs, Ymacs_Buffer } from "./ymacs.mjs";
@@ -35,13 +113,14 @@
     document.querySelector("#container").appendChild(ymacs.getElement());
     ymacs.focus();
 
+    // not work
     // 阻止使用Ctrl+n打开新标签页
-    document.addEventListener('keydown', (event) => {
-        if (event.ctrlKey && event.key === 'n') {
-            event.preventDefault(); // 阻止默认行为
-            console.log("Ctrl+n 被阻止");
-        }
-    }, false);
+    // document.addEventListener('keydown', (event) => {
+    //     if (event.ctrlKey && event.key === 'n') {
+    //         event.preventDefault(); // 阻止默认行为
+    //         console.log("Ctrl+n 被阻止");
+    //     }
+    // }, false);
 
     // 阻止意外关闭标签页(C-w)
     window.addEventListener("beforeunload", preventKill);
