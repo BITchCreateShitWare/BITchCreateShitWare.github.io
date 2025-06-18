@@ -1,0 +1,54 @@
+<link rel="stylesheet" type="text/css" href="ymacs.css">
+<link rel="stylesheet" type="text/css" href="themes/material.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ymacs Test</title>
+</head>
+<body>
+    <div id="container"></div> 
+</body>
+</html>
+
+<script type="module">
+    import { Ymacs, Ymacs_Buffer } from "./ymacs.mjs";
+    
+    // 创建缓冲区
+    let buf = new Ymacs_Buffer({ 
+        name: "缓冲区", 
+        code: "<h1>Hello World</h1>" 
+    });
+    
+    // 创建Ymacs实例
+    let ymacs = new Ymacs({ 
+        buffers: [ buf ] 
+    });
+    
+    // 配置Ymacs
+    ymacs.addClass("Ymacs-line-numbers");
+    ymacs.setColorTheme("material");
+    buf.cmd("html_mode");
+    
+    // 将Ymacs挂载到容器
+    document.querySelector("#container").appendChild(ymacs.getElement());
+    ymacs.focus();
+
+    // 阻止使用Ctrl+n打开新标签页
+    document.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.key === 'n') {
+            event.preventDefault(); // 阻止默认行为
+            console.log("Ctrl+n 被阻止");
+        }
+    }, false);
+
+    // 阻止意外关闭标签页(C-w)
+    window.addEventListener("beforeunload", preventKill);
+    function preventKill(ev) {
+        if (document.activeElement.closest(".Ymacs")) {
+            ev.preventDefault();
+            ev.returnValue = true;
+        }
+    }
+</script>
